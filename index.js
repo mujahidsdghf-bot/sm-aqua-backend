@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send("SM AQUA BACKEND WORKING ✅");
+  res.send("SM AQUA BACKEND WORKING");
 });
 
 const PORT = process.env.PORT || 3000;
