@@ -2,9 +2,11 @@ const express = require("express");
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send("SM AQUA WORKING ✅");
+  res.send("SM AQUA API WORKING SUCCESSFULLY ✅");
 });
 
-app.listen(3000, () => {
-  console.log("Server started");
+const PORT = process.env.PORT || 10000;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("Server started on port " + PORT);
 });
