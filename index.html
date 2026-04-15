@@ -20,7 +20,7 @@ document.getElementById("orderForm").addEventListener("submit", async function(e
   const name = document.getElementById("name").value;
   const water = document.getElementById("water").value;
 
-  await fetch("https://YOUR-RENDER-URL/order", {
+  await fetch("https://sm-aqua-backend-1.onrender.com", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
