@@ -6,6 +6,12 @@ const Enquiry = require("./models/Enquiry");
 const app = express();
 
 app.use(express.json());
+app.post("/enquiry", async (req, res) => {
+  const data = new Enquiry(req.body);
+  await data.save();
+
+  res.send("Saved Successfully ✅");
+});
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
