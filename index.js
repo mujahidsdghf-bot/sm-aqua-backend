@@ -2,6 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+const Enquiry = require("./models/Enquiry");
+const app = express();
+
+app.use(express.json());
+const express = require("express");
+const mongoose = require("mongoose");
+require("dotenv").config();
+
 const app = express();
 
 mongodb+srv://mujahidsdghf_db_user:<db_password>@smaqua.bdu7rgi.mongodb.net/?appName=SMAQUA
