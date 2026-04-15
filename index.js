@@ -1,15 +1,12 @@
 const express = require("express");
 const app = express();
 
-app.use(express.json());
-
-// TEST ROUTE
 app.get("/", (req, res) => {
-  res.send("SM Aqua Backend Running ✅");
+  res.send("SM Aqua Running ✅");
 });
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log("Server started on port " + PORT);
 });
