@@ -1,43 +1,34 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
 const app = express();
+
 app.use(express.json());
 
-// MongoDB connect
-mongoose.connect("YOUR_MONGODB_URL")
-.then(() => console.log("DB Connected"))
-.catch(err => console.log(err));
-
-// Schema
-const OrderSchema = new mongoose.Schema({
+// MongoDB Schema
+const Enquiry = mongoose.model("Enquiry", {
   name: String,
   phone: String,
-  machine: String,
-  capacity: String
+  message: String
 });
 
-const Order = mongoose.model("Order", OrderSchema);
+// MongoDB connect
+mongoose.connect(process.env.MONGO_URL)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
 
-// Routes
+// API
+app.post("/enquiry", async (req, res) => {
+  const data = new Enquiry(req.body);
+  await data.save();
+  res.send("Saved Successfully ✅");
+});
+
 app.get("/", (req, res) => {
-  res.send("SM Aqua Backend Running ✅");
+  res.send("RO API WORKING ✅");
 });
 
-// Save order
-app.post("/order", async (req, res) => {
-  const data = req.body;
+const PORT = process.env.PORT || 10000;
 
-  const newOrder = new Order(data);
-  await newOrder.save();
-
-  res.json({ message: "Order Saved ✅" });
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("Server started");
 });
-
-// Get orders
-app.get("/orders", async (req, res) => {
-  const orders = await Order.find();
-  res.json(orders);
-});
-
-app.listen(process.env.PORT || 3000);
