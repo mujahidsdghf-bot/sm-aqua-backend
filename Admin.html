@@ -1,0 +1,26 @@
+<h2>SM AQUA Enquiries</h2>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Phone</th>
+    </tr>
+  </thead>
+  <tbody id="data"></tbody>
+</table>
+
+<script>
+fetch("https://sm-aqua-backend-production.up.railway.app/admin")
+  .then(res => res.json())
+  .then(data => {
+    let rows = "";
+    data.forEach(item => {
+      rows += `<tr>
+        <td>${item.name}</td>
+        <td>${item.phone}</td>
+      </tr>`;
+    });
+    document.getElementById("data").innerHTML = rows;
+  });
+</script>
