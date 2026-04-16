@@ -25,3 +25,7 @@ app.listen(PORT, "0.0.0.0", () => {
 app.get("/enquiry", (req, res) => {
   res.send("Enquiry API is working ✅");
 });
+app.get("/admin", async (req, res) => {
+  const data = await Enquiry.find();
+  res.json(data);
+});
