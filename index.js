@@ -1,7 +1,24 @@
-const http = require("http");
+const express = require("express");
+const app = express();
 
-http.createServer((req, res) => {
-  res.end("SM AQUA LIVE ✅");
-}).listen(process.env.PORT || 10000, "0.0.0.0");
+app.use(express.json());
 
-console.log("Server running");
+// enquiry API
+app.post("/enquiry", (req, res) => {
+  const { name, phone } = req.body;
+
+  console.log("New Enquiry:", name, phone);
+
+  res.send("Enquiry Received ✅");
+});
+
+// test route
+app.get("/", (req, res) => {
+  res.send("SM AQUA API LIVE ✅");
+});
+
+const PORT = process.env.PORT || 10000;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("Server started");
+});
