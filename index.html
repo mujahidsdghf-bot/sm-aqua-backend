@@ -1,54 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>SM Aqua RO Machines</title>
-</head>
-<body>
+<h2>RO Water Enquiry</h2>
 
-<h1>SM Aqua RO Machine Enquiry</h1>
-
-<form id="orderForm">
-
-  <input type="text" placeholder="Customer Name" id="name" required><br><br>
-
-  <input type="text" placeholder="Phone Number" id="phone" required><br><br>
-
-  <select id="machine">
-    <option>Domestic RO</option>
-    <option>Wall Mount RO</option>
-    <option>Under Sink RO</option>
-  </select><br><br>
-
-  <select id="capacity">
-    <option>10 LPH</option>
-    <option>15 LPH</option>
-    <option>20 LPH</option>
-  </select><br><br>
-
-  <button type="submit">Send Enquiry</button>
-
+<form id="form">
+  <input type="text" id="name" placeholder="Name" required><br><br>
+  <input type="text" id="phone" placeholder="Phone" required><br><br>
+  <button type="submit">Submit</button>
 </form>
 
+<p id="msg"></p>
+
 <script>
-document.getElementById("orderForm").addEventListener("submit", async function(e){
+document.getElementById("form").addEventListener("submit", async function(e) {
   e.preventDefault();
 
   const name = document.getElementById("name").value;
   const phone = document.getElementById("phone").value;
-  const machine = document.getElementById("machine").value;
-  const capacity = document.getElementById("capacity").value;
 
-  await fetch("https://sm-aqua-backend-1.onrender.com", {
+  const res = await fetch("https://sm-aqua-api.onrender.com/enquiry", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ name, phone, machine, capacity })
+    body: JSON.stringify({ name, phone })
   });
 
-  alert("Enquiry Sent ✅");
+  const data = await res.text();
+  document.getElementById("msg").innerText = data;
 });
 </script>
-
-</body>
-</html>
