@@ -1,40 +1,20 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
 
 app.use(express.json());
 
-// ✅ MongoDB connect
-mongoose.connect(process.env.MONGO_URL)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
-
-// ✅ Schema define
-const Enquiry = mongoose.model("Enquiry", {
-  name: String,
-  phone: String
+// enquiry API
+app.post("/enquiry", (req, res) => {
+  const { name, phone } = req.body;
+  console.log("New Enquiry:", name, phone);
+  res.send("Enquiry Received ✅");
 });
 
-// ✅ POST API (save)
-app.post("/enquiry", async (req, res) => {
-  const data = new Enquiry(req.body);
-  await data.save();
-
-  res.send("Saved to Database ✅");
+// admin TEMP
+app.get("/admin", (req, res) => {
+  res.send("Admin working ✅");
 });
 
-// ✅ GET test
-app.get("/enquiry", (req, res) => {
-  res.send("Enquiry API is working ✅");
-});
-
-// ✅ ADMIN (view data)
-app.get("/admin", async (req, res) => {
-  const data = await Enquiry.find();
-  res.json(data);
-});
-
-// ✅ HOME
 app.get("/", (req, res) => {
   res.send("SM AQUA API LIVE ✅");
 });
