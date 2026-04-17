@@ -1,40 +1,47 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const app = express();
 
+const app = express();
 app.use(express.json());
 
-// ✅ MongoDB connect
-mongoose.connect(process.env.MONGO_URL)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+// 🔴 IMPORTANT: మీ MongoDB URL ఇక్కడ పెట్టండి
+mongoose.connect("mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/test")
+.then(() => console.log("DB Connected ✅"))
+.catch(err => console.log("DB Error ❌", err));
 
-// ✅ Schema
-const Enquiry = mongoose.model("Enquiry", {
+// Schema
+const OrderSchema = new mongoose.Schema({
   name: String,
-  phone: String
+  phone: String,
+  machine: String,
+  capacity: String
 });
 
-// ✅ Save enquiry
-app.post("/enquiry", async (req, res) => {
-  const data = new Enquiry(req.body);
-  await data.save();
-  res.send("Saved to Database ✅");
-});
+const Order = mongoose.model("Order", OrderSchema);
 
-// ✅ Admin view
-app.get("/admin", async (req, res) => {
-  const data = await Enquiry.find();
-  res.json(data);
-});
-
-// ✅ Home
+// Home
 app.get("/", (req, res) => {
-  res.send("SM AQUA API LIVE ✅");
+  res.send("SM Aqua Backend Running ✅");
 });
 
-const PORT = process.env.PORT || 10000;
+// Save order
+app.post("/order", async (req, res) => {
+  try {
+    const newOrder = new Order(req.body);
+    await newOrder.save();
+    res.json({ message: "Order Saved ✅" });
+  } catch (err) {
+    res.status(500).json({ error: "Error saving order ❌" });
+  }
+});
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log("Server started");
+// Get all orders
+app.get("/orders", async (req, res) => {
+  const orders = await Order.find();
+  res.json(orders);
+});
+
+// Server start
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Server started 🚀");
 });
