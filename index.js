@@ -5,7 +5,10 @@ const app = express();
 app.use(express.json());
 
 // ⚠️ TRY/CATCH safe connection
-mongoose.connect("mongodb+srv://USERNAME:PASSWORD@cluster0.xxxxx.mongodb.net/test")
+mongoose.connect("YOUR_URL", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 .then(() => console.log("DB Connected ✅"))
 .catch(err => {
   console.log("DB Error ❌", err);
