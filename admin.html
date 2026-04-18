@@ -39,7 +39,7 @@
 
 <script>
 async function loadOrders() {
-  const res = await fetch("https://YOUR-RENDER-URL/orders");
+  const res = await fetch("https://sm-aqua-backend-1.onrender.com");
   const data = await res.json();
 
   const table = document.querySelector("#ordersTable tbody");
