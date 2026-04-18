@@ -5,25 +5,19 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
-
-// --- MIDDLEWARE ---
 app.use(express.json());
-app.use(cors()); // ఇది లేకపోతే ఫ్రంటెండ్ నుండి డేటా రాదు
+app.use(cors());
 
-// --- TWILIO CONFIGURATION ---
-const client = twilio(
-  process.env.TWILIO_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
+// Twilio Client
+const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 
-// --- MONGODB CONNECTION ---
+// MongoDB Connection
 const mongoURI = process.env.MONGO_URI || "mongodb+srv://mujahidsdghf_db_user:15243%40Smaqua@smaqua.bdu7rgi.mongodb.net/test?retryWrites=true&w=majority";
 
 mongoose.connect(mongoURI)
-  .then(() => console.log("MongoDB Connected ✅"))
-  .catch(err => console.error("MongoDB Connection Error ❌:", err));
+  .then(() => console.log("DB Connected ✅"))
+  .catch(err => console.log("DB Error ❌", err));
 
-// --- DATABASE SCHEMA ---
 const OrderSchema = new mongoose.Schema({
   name: String,
   phone: String,
@@ -34,49 +28,38 @@ const OrderSchema = new mongoose.Schema({
 
 const Order = mongoose.model("Order", OrderSchema);
 
-// --- ROUTES ---
-
-// 1. Home Route (చెక్ చేయడానికి)
 app.get("/", (req, res) => {
-  res.send("SM Aqua API is Running... 🚀");
+  res.send("SM Aqua Backend Live 🚀");
 });
 
-// 2. Order Submission API
 app.post("/order", async (req, res) => {
   try {
     const { name, phone, machine, capacity } = req.body;
 
-    // డేటాబేస్‌లో సేవ్ చేయడం
+    // 1. డేటాబేస్ లో సేవ్ చేయడం
     const newOrder = new Order({ name, phone, machine, capacity });
     await newOrder.save();
 
-    // వాట్సాప్ మెసేజ్ పంపడం
-    await client.messages.create({
-      from: "whatsapp:+14155238886", // ట్విలియో సాండ్‌బాక్స్ నంబర్
-      to: "whatsapp:+919177411712",   // మీ వాట్సాప్ నంబర్
-      body: `🚀 *New SM Aqua Order*\n\n👤 పేరు: ${name}\n📞 ఫోన్: ${phone}\n💧 మెషిన్: ${machine}\n📦 కెపాసిటీ: ${capacity}`
-    });
+    // 2. వాట్సాప్ మెసేజ్ పంపడం (దీనిని try-catch లో ఉంచాము)
+    try {
+      await client.messages.create({
+        from: "whatsapp:+14155238886",
+        to: "whatsapp:+919177411712", 
+        body: `🚀 *New SM Aqua Order*\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n💧 Machine: ${machine}\n📦 Capacity: ${capacity}`
+      });
+      console.log("WhatsApp Sent ✅");
+    } catch (whatsappError) {
+      console.log("WhatsApp Error (But Order Saved):", whatsappError.message);
+      // మెసేజ్ వెళ్లకపోయినా పర్వాలేదు, మనం కింద సక్సెస్ రిスポన్స్ ఇస్తాము
+    }
 
-    res.status(200).json({ success: true, message: "Order & WhatsApp Sent! ✅" });
+    res.json({ success: true, message: "Order Received ✅" });
 
   } catch (err) {
-    console.error("Error Detail:", err);
-    res.status(500).json({ success: false, error: "Internal Server Error ❌" });
+    console.error("Main Error:", err);
+    res.status(500).json({ success: false, error: "Server Error ❌" });
   }
 });
 
-// 3. All Orders (అడ్మిన్ కోసం)
-app.get("/orders", async (req, res) => {
-  try {
-    const orders = await Order.find().sort({ date: -1 });
-    res.json(orders);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch orders" });
-  }
-});
-
-// --- SERVER START ---
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT} 🚀`);
-});
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));
