@@ -1,26 +1,65 @@
-<h2>SM AQUA Enquiries</h2>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SM Aqua Admin Panel</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    h1 { text-align: center; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #000;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #00aaff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
 
-<table border="1">
+<h1>SM Aqua Orders</h1>
+
+<table id="ordersTable">
   <thead>
     <tr>
       <th>Name</th>
       <th>Phone</th>
+      <th>Machine</th>
+      <th>Capacity</th>
     </tr>
   </thead>
-  <tbody id="data"></tbody>
+  <tbody></tbody>
 </table>
 
 <script>
-fetch("https://sm-aqua-backend-production.up.railway.app/admin")
-  .then(res => res.json())
-  .then(data => {
-    let rows = "";
-    data.forEach(item => {
-      rows += `<tr>
-        <td>${item.name}</td>
-        <td>${item.phone}</td>
-      </tr>`;
-    });
-    document.getElementById("data").innerHTML = rows;
+async function loadOrders() {
+  const res = await fetch("https://YOUR-RENDER-URL/orders");
+  const data = await res.json();
+
+  const table = document.querySelector("#ordersTable tbody");
+  table.innerHTML = "";
+
+  data.forEach(order => {
+    const row = `
+      <tr>
+        <td>${order.name}</td>
+        <td>${order.phone}</td>
+        <td>${order.machine}</td>
+        <td>${order.capacity}</td>
+      </tr>
+    `;
+    table.innerHTML += row;
   });
+}
+
+loadOrders();
 </script>
+
+</body>
+</html>
