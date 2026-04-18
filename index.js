@@ -14,9 +14,14 @@ const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 // MongoDB Connection
 const mongoURI = process.env.MONGO_URI ||"mongodb+srv://mujahidsdghf_db_user:15243%40Smaqua@smaqua.bdu7rgi.mongodb.net/?appName=SMAQUA";
 
-mongoose.connect(mongoURI)
-  .then(() => console.log("DB Connected ✅"))
-  .catch(err => console.log("DB Error ❌", err));
+// పాత mongoose.connect తీసేసి ఇది పెట్టండి
+mongoose.connect(mongoURI, {
+  serverSelectionTimeoutMS: 5000 // 5 సెకన్ల కంటే ఎక్కువ సమయం తీసుకుంటే ఆగిపోతుంది
+})
+.then(() => console.log("MongoDB Connected Successfully! ✅"))
+.catch(err => {
+  console.error("MongoDB Connection Failed! ❌ Error: ", err.message);
+});
 
 const OrderSchema = new mongoose.Schema({
   name: String,
