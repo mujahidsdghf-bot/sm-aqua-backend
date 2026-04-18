@@ -4,14 +4,14 @@ const twilio = require("twilio");
 
 // 🔑
 const client = new twilio(
-  "ACxxxxxxxxxxxxxxxxxxxxx",   // AC2f4c5f7922c852e68b8eeaac4f5dd03a
-  "your_auth_token_here"       // 96ed290b803f2e63e385d9c9515220c4
+  "AC2f4c5f7922c852e68b8eeaac4f5dd03a",   // మీ SID
+  "96ed290b803f2e63e385d9c9515220c4"      // మీ TOKEN
 );
 
 const app = express();
 app.use(express.json());
 
-mongoose.connect("mongodb+srv://mujahidsdghf_db_user:15243%40Smaqua@smaqua.bdu7rgi.mongodb.net/?appName=SMAQUA", {
+mongoose.connect("mongodb+srv://mujahidsdghf_db_user:15243%40Smaqua@smaqua.bdu7rgi.mongodb.net/test", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
