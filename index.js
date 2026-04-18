@@ -31,7 +31,32 @@ const Order = mongoose.model("Order", OrderSchema);
 app.get("/", (req, res) => {
   res.send("SM Aqua Backend Running ✅");
 });
+app.post("/order", async (req, res) => {
+  try {
+    const { name, phone, machine, capacity } = req.body;
 
+    const newOrder = new Order({ name, phone, machine, capacity });
+    await newOrder.save();
+
+    // WhatsApp message
+    await client.messages.create({
+      from: "whatsapp:+14155238886",
+      to: "whatsapp:+919177411712", //
+      body: `🚀 New Order
+
+Name: ${name}
+Phone: ${phone}
+Machine: ${machine}
+Capacity: ${capacity}`
+    });
+
+    res.json({ message: "Order + WhatsApp Sent ✅" });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error ❌" });
+  }
+});
 app.post("/order", async (req, res) => {
   try {
     const newOrder = new Order(req.body);
