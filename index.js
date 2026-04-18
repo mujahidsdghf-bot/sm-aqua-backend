@@ -3,9 +3,11 @@ const mongoose = require("mongoose");
 const twilio = require("twilio");
 
 // 🔑
-const client = new twilio(
-  "AC2f4c5f7922c852e68b8eeaac4f5dd03a",
-  "2b6d6eed8daf347db44006f36571d7a8" 
+require("dotenv").config();
+
+const client = require("twilio")(
+  process.env.TWILIO_SID,
+  process.env.TWILIO_AUTH_TOKEN
 );
 
 const app = express();
@@ -47,7 +49,7 @@ app.post("/order", async (req, res) => {
       to: "whatsapp:+919177411712", // 
       body: `🚀 New Order
 
-Name: ${name
+Name: ${name}
 Phone: ${phone}
 Machine: ${machine}
 Capacity: ${capacity}`
