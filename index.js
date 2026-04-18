@@ -12,7 +12,7 @@ app.use(cors());
 const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 
 // MongoDB Connection
-const mongoURI = process.env.MONGO_URI || "mongodb+srv://mujahidsdghf_db_user:15243%40Smaqua@smaqua.bdu7rgi.mongodb.net/test?retryWrites=true&w=majority";
+const mongoURI = process.env.MONGO_URI ||"mongodb+srv://mujahidsdghf_db_user:15243%40Smaqua@smaqua.bdu7rgi.mongodb.net/?appName=SMAQUA";
 
 mongoose.connect(mongoURI)
   .then(() => console.log("DB Connected ✅"))
