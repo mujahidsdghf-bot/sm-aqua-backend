@@ -4,8 +4,8 @@ const twilio = require("twilio");
 
 // 🔑
 const client = new twilio(
-  "AC2f4c5f7922c852e68b8eeaac4f5dd03a",   // మీ SID
-  "2b6d6eed8daf347db44006f36571d7a8"      // మీ TOKEN
+  "AC2f4c5f7922c852e68b8eeaac4f5dd03a",
+  "2b6d6eed8daf347db44006f36571d7a8" 
 );
 
 const app = express();
