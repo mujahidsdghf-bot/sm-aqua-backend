@@ -10,6 +10,8 @@
         body { font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
         .hero-bg { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('machine.jpg'); background-size: cover; background-position: center; }
         .payment-card { border: 2px dashed #3b82f6; }
+        .product-card img { transition: transform 0.3s ease; }
+        .product-card:hover img { transform: scale(1.05); }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -19,6 +21,7 @@
             <h1 class="text-2xl font-black">SM AQUA</h1>
             <div class="hidden md:flex space-x-6 font-semibold">
                 <a href="#features" class="hover:text-blue-300">Features</a>
+                <a href="#products" class="hover:text-blue-300">Products</a>
                 <a href="#pricing" class="hover:text-blue-300">Pricing</a>
                 <a href="#payment" class="hover:text-blue-300">Payment</a>
             </div>
@@ -60,10 +63,50 @@
         </div>
     </section>
 
-    <section id="pricing" class="py-16 bg-blue-50">
+    <section id="products" class="py-16 bg-blue-50">
+        <div class="container mx-auto px-6">
+            <h3 class="text-3xl font-bold text-center mb-12 text-blue-900">మా ఉత్పత్తులు (Our Products)</h3>
+            <p class="text-center text-gray-700 mb-10">SM AQUA ALKALINE RO సిరీస్ - ఆరోగ్యం మరియు స్వచ్ఛతకు మారుపేరు</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                
+                <div class="product-card bg-white p-4 rounded-2xl shadow-md border hover:border-blue-500 transition-all text-center">
+                    <img src="machine1.jpg" alt="SM Aqua Premium Black" class="h-48 mx-auto mb-4 object-contain">
+                    <h4 class="font-bold text-blue-800 text-sm">SM AQUA Premium Black</h4>
+                    <p class="text-xs text-gray-600">Alkaline + RO + UV</p>
+                </div>
+
+                <div class="product-card bg-white p-4 rounded-2xl shadow-md border hover:border-blue-500 transition-all text-center">
+                    <img src="machine2.jpg" alt="SM Aqua Classic" class="h-48 mx-auto mb-4 object-contain">
+                    <h4 class="font-bold text-blue-800 text-sm">SM AQUA Classic Blue</h4>
+                    <p class="text-xs text-gray-600">Mineral + RO + UF</p>
+                </div>
+
+                <div class="product-card bg-white p-4 rounded-2xl shadow-md border hover:border-blue-500 transition-all text-center">
+                    <img src="machine3.jpg" alt="SM Aqua Slim" class="h-48 mx-auto mb-4 object-contain">
+                    <h4 class="font-bold text-blue-800 text-sm">SM AQUA Slim Metallic</h4>
+                    <p class="text-xs text-gray-600">Ultra Slim Design</p>
+                </div>
+
+                <div class="product-card bg-white p-4 rounded-2xl shadow-md border hover:border-blue-500 transition-all text-center">
+                    <img src="machine4.jpg" alt="SM Aqua Digital" class="h-48 mx-auto mb-4 object-contain">
+                    <h4 class="font-bold text-blue-800 text-sm">SM AQUA Digital Display</h4>
+                    <p class="text-xs text-gray-600">Water Level Indicator</p>
+                </div>
+
+                <div class="product-card bg-white p-4 rounded-2xl shadow-md border hover:border-blue-500 transition-all text-center">
+                    <img src="machine5.jpg" alt="SM Aqua Compact" class="h-48 mx-auto mb-4 object-contain">
+                    <h4 class="font-bold text-blue-800 text-sm">SM AQUA Under-Sink</h4>
+                    <p class="text-xs text-gray-600">Space Saving Model</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-16 bg-white">
         <div class="container mx-auto px-6">
             <h3 class="text-3xl font-bold text-center mb-12 text-blue-900">ధరల పట్టిక (Pricing)</h3>
-            <div class="max-w-4xl mx-auto bg-white rounded-3xl overflow-hidden shadow-xl">
+            <div class="max-w-4xl mx-auto bg-white rounded-3xl overflow-hidden shadow-xl border">
                 <table class="w-full text-left">
                     <thead class="bg-blue-800 text-white">
                         <tr>
@@ -81,14 +124,14 @@
         </div>
     </section>
 
-    <section id="payment" class="py-16 bg-white">
+    <section id="payment" class="py-16 bg-blue-50">
         <div class="container mx-auto px-6 text-center">
             <h3 class="text-3xl font-bold mb-4 text-blue-900">Easy Payment</h3>
             <p class="mb-8 text-gray-600">మీరు Google Pay లేదా PhonePe ద్వారా నేరుగా స్కాన్ చేయవచ్చు</p>
-            <div class="max-w-sm mx-auto p-6 bg-gray-50 rounded-3xl payment-card">
-                <h4 class="font-bold mb-4 text-lg">Scan to Pay (UPI)</h4>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=9177411712@ybl%26pn=SM_AQUA%26cu=INR" alt="UPI QR Code" class="mx-auto mb-4 border-4 border-white shadow-lg">
-                <p class="font-bold text-blue-800">SM AQUA - 9177411712</p>
+            <div class="max-w-sm mx-auto p-6 bg-white rounded-3xl payment-card shadow-lg">
+                <h4 class="font-bold mb-4 text-lg text-blue-800">Scan to Pay (UPI)</h4>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=9177411712@ybl%26pn=SM_AQUA%26cu=INR" alt="UPI QR Code" class="mx-auto mb-4 border-4 border-gray-100 shadow-lg">
+                <p class="font-bold text-gray-900">SM AQUA - 9177411712</p>
                 <div class="mt-4 flex justify-center space-x-4">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Google_Pay_Logo.svg/2560px-Google_Pay_Logo.svg.png" class="h-6">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/PhonePe_Logo.svg/1200px-PhonePe_Logo.svg.png" class="h-6">
@@ -129,12 +172,12 @@
             <div>
                 <h4 class="text-xl font-bold mb-4">Our Location</h4>
                 <div class="h-32 w-full bg-gray-700 rounded-xl overflow-hidden">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d243647.31604070633!2d78.2679590861111!3d17.41229980145851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99daeaebd2c7%3A0xae93b78392bafbc2!2sHyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1m2!1m1!2sHyderabad%2C+Telangana!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99daeaebd2c7%3A0xae93b783224965af!2sHyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1710000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </div>
         <div class="text-center mt-10 text-gray-600 border-t border-gray-800 pt-6">
-            &copy; 2026 SM Aqua Services. Designed for Healthy Living.
+            © 2026 SM Aqua Services. Designed for Healthy Living.
         </div>
     </footer>
 
@@ -145,9 +188,10 @@
                 name: document.getElementById("name").value,
                 phone: document.getElementById("phone").value,
                 machine: document.getElementById("machine").value,
-                capacity: "SM-AQUA-ADV"
+                capacity: "SM-AQUA-ADV-PROD"
             };
             try {
+                // మీ బ్యాకెండ్ URL సరిగ్గా ఉందో లేదో చూసుకోండి
                 const response = await fetch("https://sm-aqua-backend-production.up.railway.app/order", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
