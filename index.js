@@ -44,10 +44,10 @@ app.post("/order", async (req, res) => {
     // 📲 WhatsApp message
     await client.messages.create({
       from: "whatsapp:+14155238886",
-      to: "whatsapp:+919177411712", // 👉 మీ number (already correct)
+      to: "whatsapp:+919177411712", // 
       body: `🚀 New Order
 
-Name: ${name}
+Name: ${name
 Phone: ${phone}
 Machine: ${machine}
 Capacity: ${capacity}`
