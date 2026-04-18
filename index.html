@@ -15,7 +15,8 @@ document.getElementById("form").addEventListener("submit", async function(e) {
   const name = document.getElementById("name").value;
   const phone = document.getElementById("phone").value;
 
-  const res = await fetch("https://sm-aqua-api.onrender.com/enquiry", {
+  const res = await fetch("https://sm-aqua-backend-production.up.railway.app/order", {
+", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
