@@ -1,64 +1,105 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SM Aqua Admin Panel</title>
+  <title>SM Aqua RO Machines</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: Arial; padding: 20px; }
-    h1 { text-align: center; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
+    body {
+      font-family: Arial, sans-serif;
+      background: #e6f7ff;
+      margin: 0;
+      padding: 0;
     }
-    th, td {
-      border: 1px solid #000;
-      padding: 10px;
+
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    h1 {
       text-align: center;
+      color: #0077cc;
     }
-    th {
-      background-color: #00aaff;
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background: #0077cc;
       color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #005fa3;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: gray;
     }
   </style>
 </head>
 <body>
 
-<h1>SM Aqua Orders</h1>
+<div class="container">
+  <h1>SM Aqua RO Machines</h1>
 
-<table id="ordersTable">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Phone</th>
-      <th>Machine</th>
-      <th>Capacity</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
+  <form id="orderForm">
+    <input type="text" placeholder="Customer Name" id="name" required>
+    <input type="text" placeholder="Phone Number" id="phone" required>
+
+    <select id="machine">
+      <option>Domestic RO</option>
+      <option>Wall Mount RO</option>
+      <option>Under Sink RO</option>
+    </select>
+
+    <select id="capacity">
+      <option>10 LPH</option>
+      <option>15 LPH</option>
+      <option>20 LPH</option>
+    </select>
+
+    <button type="submit">Send Enquiry</button>
+  </form>
+
+  <div class="footer">© SM Aqua</div>
+</div>
 
 <script>
-async function loadOrders() {
-  const res = await fetch("https://sm-aqua-backend-1.onrender.com");
-  const data = await res.json();
+document.getElementById("orderForm").addEventListener("submit", async function(e){
+  e.preventDefault();
 
-  const table = document.querySelector("#ordersTable tbody");
-  table.innerHTML = "";
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const machine = document.getElementById("machine").value;
+  const capacity = document.getElementById("capacity").value;
 
-  data.forEach(order => {
-    const row = `
-      <tr>
-        <td>${order.name}</td>
-        <td>${order.phone}</td>
-        <td>${order.machine}</td>
-        <td>${order.capacity}</td>
-      </tr>
-    `;
-    table.innerHTML += row;
+  await fetch("https://sm-aqua-backend-1.onrender.com", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ name, phone, machine, capacity })
   });
-}
 
-loadOrders();
+  alert("Enquiry Sent ✅");
+});
 </script>
 
 </body>
